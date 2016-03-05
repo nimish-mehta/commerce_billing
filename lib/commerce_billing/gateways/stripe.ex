@@ -48,7 +48,7 @@ defmodule Commerce.Billing.Gateways.Stripe do
   defp connect_params(opts) do
     Keyword.take(opts, [:destination, :application_fee])
   end
-  
+
 
   def capture(id, opts) do
     amount = Keyword.get(opts, :amount)
@@ -119,14 +119,14 @@ defmodule Commerce.Billing.Gateways.Stripe do
   end
 
   defp respond({:ok, %{status_code: 200, body: body}}) do
-    data = Jazz.decode!(body)
+    data = Poison.decode!(body)
     {cvc_result, avs_result} = verification_result(data)
 
     {:ok, Response.success(authorization: data["id"], raw: data, cvc_result: cvc_result, avs_result: avs_result)}
   end
 
   defp respond({:ok, %{body: body, status_code: status_code}}) do
-    data = Jazz.decode!(body)
+    data = Poison.decode!(body)
     {code, reason} = error(status_code, data["error"])
     {cvc_result, avs_result} = verification_result(data)
 

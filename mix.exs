@@ -32,7 +32,7 @@ defmodule Commerce.Billing.Mixfile do
   #
   # Type `mix help deps` for more examples and options
   defp deps do
-    [{:jazz, ">= 0.2.0"},
+    [{:poison, "~> 1.5.1"},
      {:httpoison, ">= 0.7.1"},
      {:ex_doc, ">= 0.6.0"},
      {:mock, ">= 0.1.0"}]
